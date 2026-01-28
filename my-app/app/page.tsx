@@ -1,8 +1,33 @@
 import Image from "next/image";
 
-export default function Home() {
+async function getXkcdComic() {
+  const res = await fetch("https://xkcd.com/info.0.json", {
+    next: { revalidate: 3600 },
+  });
+  return res.json();
+}
+
+export default async function Home() {
+  const comic = await getXkcdComic();
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      <a
+        href={`https://xkcd.com/${comic.num}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed top-4 right-4 z-50"
+        title={comic.alt}
+      >
+        <Image
+          src={comic.img}
+          alt={comic.title}
+          width={200}
+          height={200}
+          className="rounded shadow-lg"
+          style={{ width: "auto", height: "auto", maxWidth: "200px" }}
+        />
+      </a>
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
         <Image
           className="dark:invert"
