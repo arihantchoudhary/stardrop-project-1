@@ -20,20 +20,11 @@
 }
 
 body {
-  background: var(--background);
+  background: transparent;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* When custom background is active, make content areas transparent */
-.custom-bg-active,
-.custom-bg-active body {
-  background: transparent !important;
-}
-
-.custom-bg-active [class*="bg-zinc-50"],
-.custom-bg-active [class*="bg-white"],
-.custom-bg-active [class*="bg-black"],
-.custom-bg-active [class*="dark:bg-black"] {
-  background: transparent !important;
+html {
+  background: var(--background);
 }

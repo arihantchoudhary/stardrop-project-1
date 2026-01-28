@@ -11,7 +11,7 @@ export default async function Home() {
   const comic = await getXkcdComic();
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    <div className="flex min-h-screen items-center justify-center font-sans">
       <a
         href={`https://xkcd.com/${comic.num}`}
         target="_blank"
@@ -28,7 +28,7 @@ export default async function Home() {
           style={{ width: "auto", height: "auto", maxWidth: "200px" }}
         />
       </a>
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 sm:items-start">
         <Image
           className="dark:invert"
           src="/next.svg"

@@ -11,25 +11,8 @@ export default function BackgroundPicker() {
     const saved = localStorage.getItem("customBackground");
     if (saved) {
       setBackgroundUrl(saved);
-      applyBackground(saved);
     }
   }, []);
-
-  const applyBackground = (url: string | null) => {
-    if (url) {
-      document.documentElement.style.backgroundImage = `url(${url})`;
-      document.documentElement.style.backgroundSize = "cover";
-      document.documentElement.style.backgroundPosition = "center";
-      document.documentElement.style.backgroundAttachment = "fixed";
-      document.documentElement.classList.add("custom-bg-active");
-    } else {
-      document.documentElement.style.backgroundImage = "";
-      document.documentElement.style.backgroundSize = "";
-      document.documentElement.style.backgroundPosition = "";
-      document.documentElement.style.backgroundAttachment = "";
-      document.documentElement.classList.remove("custom-bg-active");
-    }
-  };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -38,7 +21,6 @@ export default function BackgroundPicker() {
       reader.onload = (event) => {
         const dataUrl = event.target?.result as string;
         setBackgroundUrl(dataUrl);
-        applyBackground(dataUrl);
         localStorage.setItem("customBackground", dataUrl);
       };
       reader.readAsDataURL(file);
@@ -48,13 +30,26 @@ export default function BackgroundPicker() {
 
   const clearBackground = () => {
     setBackgroundUrl(null);
-    applyBackground(null);
     localStorage.removeItem("customBackground");
     setIsOpen(false);
   };
 
   return (
-    <div className="fixed bottom-4 left-4 z-50">
+    <>
+      {/* Background Layer */}
+      {backgroundUrl && (
+        <div
+          className="fixed inset-0 -z-10"
+          style={{
+            backgroundImage: `url(${backgroundUrl})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
+          }}
+        />
+      )}
+
+      <div className="fixed bottom-4 left-4 z-50">
       {/* Options Panel */}
       {isOpen && (
         <div className="absolute bottom-16 left-0 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
@@ -128,5 +123,6 @@ export default function BackgroundPicker() {
         )}
       </button>
     </div>
+    </>
   );
 }
