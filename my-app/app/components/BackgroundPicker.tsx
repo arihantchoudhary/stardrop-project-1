@@ -17,15 +17,17 @@ export default function BackgroundPicker() {
 
   const applyBackground = (url: string | null) => {
     if (url) {
-      document.body.style.backgroundImage = `url(${url})`;
-      document.body.style.backgroundSize = "cover";
-      document.body.style.backgroundPosition = "center";
-      document.body.style.backgroundAttachment = "fixed";
+      document.documentElement.style.backgroundImage = `url(${url})`;
+      document.documentElement.style.backgroundSize = "cover";
+      document.documentElement.style.backgroundPosition = "center";
+      document.documentElement.style.backgroundAttachment = "fixed";
+      document.documentElement.classList.add("custom-bg-active");
     } else {
-      document.body.style.backgroundImage = "";
-      document.body.style.backgroundSize = "";
-      document.body.style.backgroundPosition = "";
-      document.body.style.backgroundAttachment = "";
+      document.documentElement.style.backgroundImage = "";
+      document.documentElement.style.backgroundSize = "";
+      document.documentElement.style.backgroundPosition = "";
+      document.documentElement.style.backgroundAttachment = "";
+      document.documentElement.classList.remove("custom-bg-active");
     }
   };
 
